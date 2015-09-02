@@ -1,0 +1,5 @@
+nginx_user: "nginx"
+vhost_path: /etc/nginx/conf.d/default.conf
+nginx:
+    nginx_user: "nginx"
+    vhost_path: /etc/nginx/conf.d/default.conf

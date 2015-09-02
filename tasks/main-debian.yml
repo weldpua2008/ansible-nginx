@@ -13,7 +13,7 @@
     - nginx
 
 - name: copy nginx default site
-  template: src=default.{{ nginx.php_engine }}.j2 dest=/etc/nginx/sites-available/default
+  template: src=default.{{ nginx.php_engine }}.j2 dest={{ nginx.vhost_path }}
   notify: reload nginx
   tags:
     - nginx

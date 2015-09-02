@@ -1,0 +1,5 @@
+nginx_user: "www-data"
+vhost_path: /etc/nginx/sites-enabled/default
+nginx:
+    nginx_user: "www-data"
+    vhost_path: /etc/nginx/sites-enabled/default
