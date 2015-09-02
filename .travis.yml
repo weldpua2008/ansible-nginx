@@ -66,7 +66,6 @@ script:
  - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:14.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
  # Run tests on Ubuntu 12
  - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:12.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
-
 # Run tests on debian 8
  - docker run --rm=true -v `pwd`:/ansible-nginx:rw debian:8 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
 
@@ -76,10 +75,10 @@ script:
  - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:7 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
 
  # Run tests on fedora 22
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw fedora:22 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+# - docker run --rm=true -v `pwd`:/ansible-nginx:rw fedora:22 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
 
  # Run tests on opensuse 13.2
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw opensuse:13.2 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+# - docker run --rm=true -v `pwd`:/ansible-nginx:rw opensuse:13.2 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
 
 
 
