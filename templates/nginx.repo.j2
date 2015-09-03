@@ -1,5 +1,5 @@
 [nginx]
 name=nginx repo
-baseurl=http://nginx.org/packages/{{ ansible_distribution|lower }}/{{ ansible_distribution_version|int }}/$basearch/
+baseurl=http://nginx.org/packages/{{ ansible_distribution|lower }}/$releasever/$basearch/
 gpgcheck=0
 enabled=1
