@@ -6,9 +6,19 @@
   tags:
     - nginx
 
+- name: create document root directory if needed
+  file: path={{ nginx.document_root }} state=directory mode=0755
+  tags:
+    - nginx
+
+- name: Starting nginx service
+  service: name=nginx state=started
+  tags:
+    - nginx
+
 - name: copy nginx default conf
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
-  notify: reload nginx
+  notify: restart nginx
   tags:
     - nginx
 
@@ -25,6 +35,6 @@
 
 - name: copy phpinfo
   template: src=index.php.j2 dest={{ nginx.document_root }}index.php
-  notify: reload nginx
+  notify: restart nginx
   tags:
     - nginx
