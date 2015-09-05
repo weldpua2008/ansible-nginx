@@ -81,7 +81,6 @@ script:
 # - docker run --rm=true -v `pwd`:/ansible-nginx:rw opensuse:13.2 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
 
 
-
 #notifications:
 #  email: false
 #  hipchat:
