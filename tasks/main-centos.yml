@@ -11,7 +11,18 @@
     - nginx
 
 - name: Ensure nginx is installed.
-  yum: pkg=nginx state=installed enablerepo=nginx
+  yum: pkg=nginx state=present
+  #installed enablerepo=nginx
+  tags:
+    - nginx
+
+- name: create document root directory if needed
+  file: path={{ nginx.document_root }} state=directory mode=0755
+  tags:
+    - nginx
+
+- name: Starting nginx service
+  service: name=nginx state=started
   tags:
     - nginx
 
@@ -27,10 +38,7 @@
   tags:
     - nginx
 
-- name: create document root directory if needed
-  file: path={{ nginx.document_root }} state=directory mode=0755
-  tags:
-    - nginx
+
 
 - name: copy phpinfo
   template: src=index.php.j2 dest={{ nginx.document_root }}index.php
