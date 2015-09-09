@@ -21,6 +21,8 @@ fi
 
 apt-get update
 apt-get install python-pip python-dev -y
+# try to fix msg: Could not import python modules: apt, apt_pkg. Please install python-apt package.
+apt-get install python-apt -y -q
 if [ "${OS_VERSION}" == "12" ];then
     apt-get install python-setuptools -y
     apt-get install    build-essential -y
