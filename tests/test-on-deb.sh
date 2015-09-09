@@ -18,8 +18,8 @@ if [ "x$SUDO" == "x" ];then
     SUDO_OPTION=""
 fi
 
-
-apt-get update
+# TODO: fix  Failed to fetch http://httpredir.debian.org/debian/pool/main/p/python2.7/python2.7-dev_2.7.9-2_amd64.deb  Error reading from server. Remote end closed connection [IP: 128.31.0.66 80]
+apt-get update || apt-get update
 apt-get install python-pip python-dev -y
 # try to fix msg: Could not import python modules: apt, apt_pkg. Please install python-apt package.
 apt-get install python-apt -y -q
