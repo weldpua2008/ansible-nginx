@@ -8,8 +8,9 @@
 SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
 ANSIBLE_VERSION=${1:-latest}
-ANSIBLE_VAR=${2:-}
-ANSIBLE_EXTRA_VARS=""
+ANSIBLE_VAR=${2:-"nginx_use_service=False"}
+#ANSIBLE_EXTRA_VARS=""
+ANSIBLE_EXTRA_VARS="-e \"${ANSIBLE_VAR}\""
 
 OS_VERSION=`cat /etc/redhat-release | grep -oE '[0-9]+\.[0-9]+'|cut -d "." -f1 |head -n 1`
 SUDO=`which sudo 2> /dev/null`
@@ -20,8 +21,9 @@ if [ "x$SUDO" == "x" ];then
 fi
 
 set -e
+
 if [ "${OS_VERSION}" == "7" ];then
-    ANSIBLE_EXTRA_VARS="-e \"${ANSIBLE_VAR}\""
+
     set +e
     yum -y install epel-release
     yum -y update  
@@ -67,7 +69,7 @@ ansible-playbook -i tests/test-inventory tests/test.yml --syntax-check
 ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
 
 # Run the role/playbook again, checking to make sure it's idempotent.
-ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 
 exit 0
