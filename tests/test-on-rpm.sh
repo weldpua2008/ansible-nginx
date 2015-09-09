@@ -21,10 +21,12 @@ if [ "x$SUDO" == "x" ];then
 fi
 
 set -e
+yum -y update
 
 if [ "${OS_VERSION}" == "7" ];then
 
     set +e
+    yum -y update
     yum -y install epel-release
     yum -y update  
     yum remove iputils-20121221-6.el7.x86_64 -y
@@ -38,7 +40,7 @@ if [ "${OS_VERSION}" == "7" ];then
     pip install --upgrade pip 
 else
     set +e
-    yum -y update
+    yum -y update || yum -y update
     yum -y install epel-release
     yum -y update
     yum install gcc glibc glibc-common  -y
