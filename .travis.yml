@@ -63,16 +63,16 @@ before_install:
 
 script:
  # Run tests on Ubuntu 14
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:14.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:14.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_VERSION"
  # Run tests on Ubuntu 12
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:12.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw ubuntu:12.04 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_VERSION"
 # Run tests on debian 8
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw debian:8 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw debian:8 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_VERSION"
 
  # Run tests on CentOs 6
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:6 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION "
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:6 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_VERSION "
  # Run tests on CentOs 7
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:7 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION nginx_use_service=False"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:7 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_VERSION nginx_use_service=False"
 
  # Run tests on fedora 22
 # - docker run --rm=true -v `pwd`:/ansible-nginx:rw fedora:22 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
