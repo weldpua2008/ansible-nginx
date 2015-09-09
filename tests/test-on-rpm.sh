@@ -8,6 +8,9 @@
 SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
 ANSIBLE_VERSION=${1:-latest}
+ANSIBLE_VAR=${2:-}
+ANSIBLE_EXTRA_VARS=""
+
 OS_VERSION=`cat /etc/redhat-release | grep -oE '[0-9]+\.[0-9]+'|cut -d "." -f1 |head -n 1`
 SUDO=`which sudo 2> /dev/null`
 SUDO_OPTION="--sudo"
@@ -18,6 +21,7 @@ fi
 
 set -e
 if [ "${OS_VERSION}" == "7" ];then
+    ANSIBLE_EXTRA_VARS="-e \"${ANSIBLE_VAR}\""
     set +e
     yum -y install epel-release
     yum -y update  
@@ -59,10 +63,11 @@ cd $RDIR/..
 
 printf "[defaults]\nroles_path = ../" > ansible.cfg
 ansible-playbook -i tests/test-inventory tests/test.yml --syntax-check
-ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2` ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION}
+#ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2`
+ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
 
 # Run the role/playbook again, checking to make sure it's idempotent.
-ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2` ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 
 exit 0

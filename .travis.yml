@@ -70,9 +70,9 @@ script:
  - docker run --rm=true -v `pwd`:/ansible-nginx:rw debian:8 /bin/bash -c "/ansible-nginx/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
 
  # Run tests on CentOs 6
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:6 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:6 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION "
  # Run tests on CentOs 7
- - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:7 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+ - docker run --rm=true -v `pwd`:/ansible-nginx:rw centos:7 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION nginx_use_service=False"
 
  # Run tests on fedora 22
 # - docker run --rm=true -v `pwd`:/ansible-nginx:rw fedora:22 /bin/bash -c "/ansible-nginx/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"

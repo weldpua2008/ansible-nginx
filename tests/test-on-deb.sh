@@ -8,6 +8,8 @@
 SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
 ANSIBLE_VERSION=${1:-latest}
+ANSIBLE_VAR=${2:-}
+
 OS_VERSION=`cat /etc/*release | grep -oE '[0-9]+\.[0-9]+'|cut -d "." -f1 |head -n 1`
 SUDO=`which sudo 2> /dev/null`
 SUDO_OPTION="--sudo"
