@@ -49,10 +49,11 @@ cd $RDIR/..
 
 printf "[defaults]\nroles_path = ../" > ansible.cfg
 ansible-playbook -i tests/test-inventory tests/test.yml --syntax-check
-ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2` ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION}
+# ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2`
+ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION}
 
 # Run the role/playbook again, checking to make sure it's idempotent.
-ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2` ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+ansible-playbook -i tests/test-inventory tests/test.yml --connection=local ${SUDO_OPTION} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 
 exit 0
