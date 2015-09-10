@@ -9,7 +9,8 @@ SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
 ANSIBLE_VERSION=${1:-latest}
 ANSIBLE_VAR=${2:-}
-ANSIBLE_EXTRA_VARS=" "
+ANSIBLE_VAR="nginx_use_service=False nginx_use_service2=False"
+ANSIBLE_EXTRA_VARS=" -e \"${ANSIBLE_VAR}\" "
 if [  "${ANSIBLE_VAR}x" == "x" ];then
 	ANSIBLE_EXTRA_VARS=" -e \"nginx_use_service=False\""
 fi
