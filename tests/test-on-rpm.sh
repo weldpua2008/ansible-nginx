@@ -23,7 +23,6 @@ if [ "x$SUDO" == "x" ];then
     SUDO_OPTION=""
 fi
 
-set -e
 yum -y update
 
 if [ "${OS_VERSION}" == "7" ];then
