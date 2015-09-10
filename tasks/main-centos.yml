@@ -11,7 +11,7 @@
     - nginx
 
 - name: Debug nginx_use_service
-  debug: msg="{{nginx_use_service}} {{nginx_use_service2}}"
+  debug: msg={{ nginx_use_service }}
   tags:
     - nginx
 

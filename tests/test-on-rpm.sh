@@ -12,7 +12,7 @@ ANSIBLE_VAR=${2:-}
 ANSIBLE_VAR="nginx_use_service=False nginx_use_service2=False"
 ANSIBLE_EXTRA_VARS=" -e \"${ANSIBLE_VAR}\" "
 if [  "${ANSIBLE_VAR}x" == "x" ];then
-	ANSIBLE_EXTRA_VARS=" -e \"nginx_use_service=False\""
+	ANSIBLE_EXTRA_VARS=' -e \"nginx_use_service=False\" '
 fi
 
 OS_VERSION=`cat /etc/redhat-release | grep -oE '[0-9]+\.[0-9]+'|cut -d "." -f1 |head -n 1`
