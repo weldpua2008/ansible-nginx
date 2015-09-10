@@ -8,13 +8,15 @@
 SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
 ANSIBLE_VERSION=${1:-latest}
-ANSIBLE_VAR=${2:-"nginx_use_service=False"}
-#ANSIBLE_EXTRA_VARS=""
-ANSIBLE_EXTRA_VARS="-e \"${ANSIBLE_VAR}\""
+ANSIBLE_VAR=${2:-}
+ANSIBLE_EXTRA_VARS=" "
+if [  "${ANSIBLE_VAR}x" == "x" ];then
+	ANSIBLE_EXTRA_VARS=" -e \"nginx_use_service=False\""
+fi
 
 OS_VERSION=`cat /etc/redhat-release | grep -oE '[0-9]+\.[0-9]+'|cut -d "." -f1 |head -n 1`
 SUDO=`which sudo 2> /dev/null`
-SUDO_OPTION="--sudo"
+SUDO_OPTION="--sudo "
 # if there wasn't sudo then ansible couldn't use it
 if [ "x$SUDO" == "x" ];then
     SUDO_OPTION=""
@@ -68,10 +70,10 @@ cd $RDIR/..
 printf "[defaults]\nroles_path = ../" > ansible.cfg
 ansible-playbook -i tests/test-inventory tests/test.yml --syntax-check
 #ANSIBLE_SHORT_VERSION=`ansible-playbook --version 2> /dev/null|cut -d " " -f2|cut -d "." -f1,2`
-ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
+ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION}${ANSIBLE_EXTRA_VARS}
 
 # Run the role/playbook again, checking to make sure it's idempotent.
-ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION}${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 
 exit 0
