@@ -21,7 +21,7 @@ if [ "${OS_TYPE}" == "centos" ];then
     fi
 
 fi
-ANSIBLE_EXTRA_VARS=" -t \"${AANSIBLE_VAR}\" "
+ANSIBLE_EXTRA_VARS=" -e \"${AANSIBLE_VAR}\" "
 
 cd $RDIR/..
 
@@ -33,4 +33,3 @@ ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local 
 # Run the role/playbook again, checking to make sure it's idempotent.
 ansible-playbook -i tests/test-inventory tests/test.yml -vvv --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
-exit 0
