@@ -10,9 +10,13 @@
   tags:
     - nginx
 
+- name: Debug nginx_use_service
+  debug: msg={{ nginx_use_service }}
+  tags:
+    - nginx
+
 - name: Ensure nginx is installed.
-  yum: pkg=nginx state=present
-  #installed enablerepo=nginx
+  yum: pkg=nginx state=present enablerepo=nginx
   tags:
     - nginx
 
